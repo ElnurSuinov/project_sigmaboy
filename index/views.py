@@ -8,8 +8,8 @@ from django.contrib.auth import login, logout
 from django.views import View
 import telebot
 
-bot = telebot.TeleBot(token="8374939153:AAHZQexVY8V8kk1dCtaPqUztjtlY1NCtldg")
-chat_id = 705624842
+bot = telebot.TeleBot(token="TOKEN")
+chat_id = 'CHAT_ID'
 
 # Create your views here.
 # Главная страница
@@ -156,3 +156,4 @@ def checkout(request):
         "cart": cart,
         "total_price": total_price
     })
+
