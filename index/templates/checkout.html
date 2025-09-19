@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Оформление заказа</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f2f2f2; }
+    .total { text-align: right; font-weight: bold; }
+    .btn { padding: 10px 16px; background: #333; color: #fff; border: none; cursor: pointer; }
+    .btn:hover { background: #555; }
+  </style>
+</head>
+<body>
+  <h1>Оформление заказа</h1>
+
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
+  {% if cart or cart_items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Цена</th>
+          <th>Количество</th>
+          <th>Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart %}
+        <tr>
+          <td>{{ item.user_product.product_name }}</td>
+          <td>{{ item.user_product.product_price }} сум</td>
+          <td>{{ item.user_pr_amount }}</td>
+          <td>{% widthratio item.user_product.product_price 1 item.user_pr_amount %} сум</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="total">Итого:</td>
+          <td>{{ total_price }} сум</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn">Подтвердить заказ</button>
+    </form>
+  {% else %}
+    <p>Ваша корзина пуста.</p>
+  {% endif %}
+</body>
+</html>
